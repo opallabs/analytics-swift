@@ -24,16 +24,15 @@ import Foundation
 import AnalyticsSwift
 
 /** An Executor implementation that runs tasks and blocks until they complete. */
-public class SynchronousExecutor: Executor {
-  
-  var dispatcher: dispatch_queue_t
+public final class SynchronousExecutor: Executor {
+  var dispatcher: DispatchQueue
   
   init(name: String) {
-    self.dispatcher = dispatch_queue_create(name, DISPATCH_QUEUE_SERIAL)
+    self.dispatcher = DispatchQueue(label: name, attributes: [])
   }
   
-  public func submit(task: () -> ()) {
-    dispatch_sync(dispatcher) {
+  public func submit(_ task: @escaping () -> ()) {
+    dispatcher.sync {
       task()
     }
   }
