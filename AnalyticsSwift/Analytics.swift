@@ -31,7 +31,7 @@ open class Analytics {
   /// Executor that handles interactions with the messageQueue. This will also be used to upload events.
   var executor: Executor
   /// Queue size at which we automatically upload events
-  let flushQueueSize = 10
+  var flushQueueSize = 1
   
   /**
     Initializes a new Analytics client with the provided parameters.
